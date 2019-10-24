@@ -1,0 +1,507 @@
+<html>
+  <head>
+      <title>Room</title>
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+      <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+         <a-camera>
+            <a-cursor position="0 0 -.5"
+                      geometry="primitive: triangle; vertex-a: 0 0.02 0; vertex-b: -0.02 -0.02 0; vertex-c: 0.02 -0.02 0"
+                      material="color: #FC1302; opaque: 0.3">
+            </a-cursor>
+        </a-camera>
+        
+        //ambient light
+        
+        <a-light type="hemisphere" color="#F55113" groundColor="#DC3968" intensity=".15" castShadow="true" animation="property: groundColor; dur: 2000; from: #DC3968; to: #36F710; dir: alternate; loop: true" animation__color="property: color; dur: 2000; from: #F55113; to: #1F4417; dir: alternate; loop: true"></a-light>
+        
+        //sun
+        <a-light position="-3 1.5 -.1" type="point" intensity=".5" color="BBB" animation="property: intensity; dur: 2000; from: 0.5; to: 0; dir: alternate; loop: true"></a-light>
+        
+        <a-light type="point" intensity="0.2" distance="50" decay="2" position="-1.2 .52 .25" animation="property: intensity; dur: 2000; from: 0.2; to: 0; dir: alternate; loop: true"></a-light>
+        
+        <a-entity light="type: directional;
+                         color: #EEE; 
+                         intensity: 0.9; 
+                         castShadow: true; 
+                         shadowCameraTop: 1
+                         shadowCameraRight: 5
+                         shadowCameraLeft: -5
+                         shadowCameraBottom: -5
+                         rotation: 0 0 0"
+                  position="-7 10 -2"
+                  animation__light="property: light.intensity; dur: 2000; from: 0.9; to: 0.1; dir: alternate; loop: true"
+                  animation__pos="property: position; dur: 2000; from: -7 10 -2; to: -7 0 -4; dir: alternate; loop: true"
+                  animation__color="property: light.color; dur: 2000; from: #EEE; to: #CA7972; dir: alternate; loop: true"
+                  >
+        </a-entity>
+        
+        <a-assets>
+            <img id="ground" src="ground.jpg">
+            <img id="wall" src="wall.jpg">
+            <img id="ceiling" src="ceiling.jpg">
+            <img id="eisel" src="eisel.jpg">
+            <img id="carpet" src="carpet.jpg">
+            <video id="lava" src="lava.mp4" autoplay="true"></video>
+        </a-assets>
+            
+        //ground
+        <a-plane shadow="cast: true; receive: true;" position="0 .5 0" rotation="-90 0 0" width="4.8" height="2.9" src="#ground" shadow="receive: true"
+                 animation__mouseenter="property: src; dur: 500; from: ground.jpg; to: lava.mp4; startEvents: mouseenter; delay: 3000"
+                 animation__mouseleave="property: src; dur: 500; from: lava.mp4; to: ground.jpg; startEvents: mouseleave; delay: 1000"
+                 ></a-plane>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.47 .5 -.56" rotation="0 90 0" width="2.6" height=".02" depth="1.5" src="carpet.jpg"
+               animation__mouseenter="property: height; dur: 20000; from: 0.02; to: 20; startEvents: mouseenter; delay: 3000"
+               animation__mouseleave="property: height; dur: 2000; from: 20; to: 0.02; startEvents: mouseleave"
+               ></a-box>
+        
+        //phone
+        <a-box width="0.12" depth="0.25" src="phone.jpg" position=".2 0.01 0" rotation="0 20 0"></a-box>
+        
+        //window wall
+        <a-box shadow="cast: true; receive: true;" position="-2.45 2 .88" rotation="0 90 0" width="1" height="3" depth=".4" src="#wall"></a-box>
+        <a-box shadow="cast: true; receive: true;" position="-2.45 2 -.97" rotation="0 90 0" width=".8" height="3" depth=".4" src="#wall"></a-box>
+        <a-box shadow="cast: true; receive: true;" position="-2.45 .8 -.09" rotation="0 90 0" width="1" height="1" depth=".4" src="#wall"></a-box>
+        <a-box shadow="cast: true; receive: true;" position="-2.45 3.2 -.09" rotation="0 90 0" width="1" height=".6" depth=".4" src="#wall"></a-box>
+        
+        //window
+        <a-box shadow="cast: true; receive: true;" position="-2.5 2.15 -.09" rotation="0 90 0" width="1" height=".09" depth=".15" color="EFFF8F"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-2.49 2.854 -.09" rotation="0 90 0" width="1" height=".09" depth=".15" src="windowblind.jpg"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-2.5 1.33 -.09" rotation="0 90 0" width="1" height=".09" depth=".15" color="EFFF8F"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-2.5 2 .37" rotation="0 90 0" width=".1" height="2" depth=".15" color="F6DF5C"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-2.5 2 -.55" rotation="0 90 0" width=".1" height="2" depth=".15" color="F6DF5C"></a-box>
+        
+        //outlet
+        <a-box shadow="cast: true; receive: true;" position="-2.3 1.1 -.09" rotation="0 90 0" width=".075" height=".12" depth=".1" src="outlet.jpg"
+               animation__click="property: src; dur: 500; from: outlet.jpg; to: hands.mp4; startEvents: click"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position=".3 1.1 1.35" rotation="0 90 0" width=".075" height=".12" depth=".1" src="outlet.jpg"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position=".48 1.1 1.35" rotation="0 90 0" width=".075" height=".12" depth=".1" src="cable.jpg"></a-box>
+        
+        //power switch
+        <a-box shadow="cast: true; receive: true;" position="2.28 1.69 -.04" rotation="0 90 0" width=".075" height=".12" depth=".075" src="powerswitch.jpg"></a-box>
+        
+        //vent
+        <a-box shadow="cast: true; receive: true;" position="2.28 3.4 .685" rotation="0 90 0" width=".5" height=".15" depth=".075" src="vent.jpg"></a-box>
+        
+        //window corner box
+        <a-box shadow="cast: true; receive: true;" position="-2.3 2 1.3" rotation="0 90 0" width=".3" height="3" depth=".9" src="#wall"></a-box>
+        
+        //door wall
+        <a-plane shadow="cast: true; receive: true;" position="2.25 2 0" rotation="0 -90 0" width="3.75" height="3" src="#wall"></a-plane>
+        
+        //tunnel
+        <a-box shadow="cast: true; receive: true;" position="2.32 2 -101.8" rotation="0 -90 0" width="200" height="3" depth="0.1" color="black"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-2.3 2 -101.37" rotation="0 -90 0" width="200" height="3" depth="0.1" color="black"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="0 0.558 -101.37" rotation="90 -90 0" width="200" height="5" depth="0.1" color="black"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="0 3.6 -101.37" rotation="90 -90 0" width="200" height="5" depth="0.1" color="black"></a-box>
+        
+        //cones
+        <a-cone shadow="cast: true; receive: true;" position="-1.9 1.1 -4" color="black" radius-bottom="0.1" radius-top="0"
+                animation__color="property: color; dur: 2000; from: black; to: #FA1BC8; dir: alternate; loop: true; easing: easeInOutElastic"
+                animation__position="property: position; dur: 2000; from: -1.9 1.1 -4; to: 1.9 1.1 -4; loop: true; dir: alternate"
+                ></a-cone>
+        <a-light type="point" color="#FA1BC8" intensity="0.6" position="-1.9 1.1 -4"
+                 animation__intensity="property: intensity; dur: 2000; from: 0.6; to: 0; dir: alternate; loop: true"
+                 animation__position="property: position; dur: 2000; from: -1.9 1.1 -4; to: 1.9 1.1 -4; loop: true; dir: alternate"
+                 ></a-light>
+        
+        <a-cone shadow="cast: true; receive: true;" position="-1.9 1.1 -4" color="black" radius-bottom="0.1" radius-top="0"
+                animation__color="property: color; dur: 2000; from: black; to: #FA1BC8; dir: alternate; loop: true; easing: easeInOutElastic; delay: 1000"
+                animation__position="property: position; dur: 2000; from: -1.9 1.1 -4; to: 1.9 1.1 -4; loop: true; dir: alternate; delay: 1000"
+                ></a-cone>
+        <a-light type="point" color="#FA1BC8" intensity="0.6" position="-1.9 1.1 -4"
+                 animation__intensity="property: intensity; dur: 2000; from: 0.6; to: 0; dir: alternate; loop: true; delay: 1000"
+                 animation__position="property: position; dur: 2000; from: -1.9 1.1 -4; to: 1.9 1.1 -4; loop: true; dir: alternate; delay: 1000"
+                 ></a-light>
+        
+        <a-cone shadow="cast: true; receive: true;" position="-1.9 1.1 -4" color="black" radius-bottom="0.1" radius-top="0"
+                animation__color="property: color; dur: 2000; from: black; to: #1BF7FA; dir: alternate; loop: true; easing: easeInOutElastic"
+                animation__position="property: position; dur: 2000; from: -1.9 1.1 -4; to: 1.9 1.1 -40; loop: true; dir: alternate"
+                ></a-cone>
+        <a-light type="point" color="#1BF7FA" intensity="0.6" position="-1.9 1.1 -4"
+                 animation__intensity="property: intensity; dur: 2000; from: 0.6; to: 0; dir: alternate; loop: true"
+                 animation__position="property: position; dur: 2000; from: -1.9 1.1 -4; to: 1.9 1.1 -40; loop: true; dir: alternate"
+                 ></a-light>
+        
+        <a-cone shadow="cast: true; receive: true;" position="1.9 1.1 -4" color="black" radius-bottom="0.1" radius-top="0"
+                animation__color="property: color; dur: 2000; from: black; to: #1BF7FA; dir: alternate; loop: true; easing: easeInOutElastic"
+                animation__position="property: position; dur: 4000; from: 1.9 1.1 -4; to: -1.9 1.1 -40; loop: true; dir: alternate"
+                ></a-cone>
+        <a-light type="point" color="#1BF7FA" intensity="0.6" position="1.9 1.1 -4"
+                 animation__intensity="property: intensity; dur: 2000; from: 0.6; to: 0; dir: alternate; loop: true"
+                 animation__position="property: position; dur: 4000; from: 1.9 1.1 -4; to: -1.9 1.1 -40; loop: true; dir: alternate"
+                 ></a-light>
+        
+        <a-cone shadow="cast: true; receive: true;" position="0 1.1 -4" color="black" radius-bottom="0.1" radius-top="0"
+                animation__color="property: color; dur: 2000; from: black; to: #FAF31B; dir: alternate; loop: true; easing: easeInOutElastic"
+                animation__position="property: position; dur: 10000; from: 0 1.1 -4; to: 0 1.1 -200; loop: true; dir: alternate"
+                ></a-cone>
+        <a-light type="point" color="#FAF31B" intensity="0.6" position="0 1.1 -4"
+                 animation__intensity="property: intensity; dur: 2000; from: 0.6; to: 0; dir: alternate; loop: true"
+                 animation__position="property: position; dur: 10000; from: 0 1.1 -4; to: 0 1.1 -200; loop: true; dir: alternate"
+                 ></a-light>
+        
+        <a-cone shadow="cast: true; receive: true;" position="-1.9 1.1 -14" color="black" radius-bottom="0.1" radius-top="0"
+                animation__color="property: color; dur: 2000; from: black; to: #39FA1B; dir: alternate; loop: true; easing: easeInOutElastic"
+                animation__position="property: position; dur: 2000; from: -1.9 1.1 -14; to: 1.9 1.1 -14; loop: true; dir: alternate"
+                ></a-cone>
+        <a-light type="point" color="#39FA1B" intensity="0.6" position="-1.9 1.1 -14"
+                 animation__intensity="property: intensity; dur: 2000; from: 0.6; to: 0; dir: alternate; loop: true"
+                 animation__position="property: position; dur: 2000; from: -1.9 1.1 -14; to: 1.9 1.1 -14; loop: true; dir: alternate"
+                 ></a-light>
+        
+        <a-cone shadow="cast: true; receive: true;" position="-1.9 1.1 -14" color="black" radius-bottom="0.1" radius-top="0"
+                animation__color="property: color; dur: 2000; from: black; to: #FA1B1E; dir: alternate; loop: true; easing: easeInOutElastic; delay: 1000"
+                animation__position="property: position; dur: 2000; from: -1.9 1.1 -14; to: 1.9 1.1 -14; loop: true; dir: alternate; delay: 1000"
+                ></a-cone>
+        <a-light type="point" color="#FA1B1E" intensity="0.4" position="-1.9 1.1 -14"
+                 animation__intensity="property: intensity; dur: 2000; from: 0.4; to: 0; dir: alternate; loop: true; delay: 1000"
+                 animation__position="property: position; dur: 2000; from: -1.9 1.1 -14; to: 1.9 1.1 -14; loop: true; dir: alternate; delay: 1000"
+                 ></a-light>
+    
+        <a-cone shadow="cast: true; receive: true;" position="-1.9 1.1 -34" color="black" radius-bottom="0.1" radius-top="0"
+                animation__color="property: color; dur: 2000; from: black; to: #1B1BFA; dir: alternate; loop: true; easing: easeInOutElastic"
+                animation__position="property: position; dur: 2000; from: -1.9 1.1 -34; to: 1.9 1.1 -34; loop: true; dir: alternate"
+                ></a-cone>
+        <a-light type="point" color="#1B1BFA" intensity="0.6" position="-1.9 1.1 -34"
+                 animation__intensity="property: intensity; dur: 2000; from: 0.6; to: 0; dir: alternate; loop: true"
+                 animation__position="property: position; dur: 2000; from: -1.9 1.1 -34; to: 1.9 1.1 -34; loop: true; dir: alternate"
+                 ></a-light>
+        
+        <a-cone shadow="cast: true; receive: true;" position="-1.9 1.1 -34" color="black" radius-bottom="0.1" radius-top="0"
+                animation__color="property: color; dur: 2000; from: black; to: #FA911B; dir: alternate; loop: true; easing: easeInOutElastic; delay: 1000"
+                animation__position="property: position; dur: 2000; from: -1.9 1.1 -34; to: 1.9 1.1 -34; loop: true; dir: alternate; delay: 500"
+                ></a-cone>
+        <a-light type="point" color="#FA911B" intensity="0.4" position="-1.9 1.1 -34"
+                 animation__intensity="property: intensity; dur: 2000; from: 0.4; to: 0; dir: alternate; loop: true; delay: 1000"
+                 animation__position="property: position; dur: 2000; from: -1.9 1.1 -34; to: 1.9 1.1 -34; loop: true; dir: alternate; delay: 500"
+                 ></a-light>  
+        
+        
+        //window right wall
+        <a-plane shadow="cast: true; receive: true;" position="0 1.8 -1.37" rotation="0 0 0" width="4.5" height="4" src="#wall" visible="true"
+                 animation__mouseenter="property: visible; from: true; to: false; startEvents: mouseenter"
+                 animation__mouseleave="property: visible; from: false; to: true; startEvents: mouseleave"
+                 ></a-plane>
+        
+        <a-plane position="0 1.8 -200" rotation="0 0 0" width="4.5" height="4" color="black" ></a-plane>
+        
+        //window left wall
+        <a-box shadow="cast: true; receive: true;" position="0 2 1.37" rotation="180 0 0" width="4.5" height="3" depth = 0.09 src="#wall"
+               animation__mouseenter="property: src; from: goya.jpg; to: #wall; startEvents: mouseenter"
+               animation__mouseleave="property: src; from: #wall; to: goya.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        //ceiling
+        <a-plane shadow="cast: true; receive: false;" position="0 3.5 0" rotation="90 0" width="6" height="2.75" src="#ceiling" visible="true"
+                 animation__mouseenter="property: visible; from: true; to: false; startEvents: mouseenter"
+                 animation__mouseleave="property:visible; from: false; to: true; startEvents: mouseleave"
+                 ></a-plane>
+        
+        //bed post corner
+        <a-box shadow="cast: true; receive: true;" position="2.19 1.15 -1.3" src="bedwood.jpg" depth=".07" height="2.5" width="0.07"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        //bed post door
+        <a-box shadow="cast: true; receive: true;" position="2.19 1.15 -.4" src="bedwood.jpg" depth=".07" height="2.5" width="0.07"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        //bed post oxford
+        <a-box shadow="cast: true; receive: true;" position="-.19 1.15 -1.3" src="bedwood.jpg" depth=".07" height="2.5" width="0.07"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        //bed post middle
+        <a-box shadow="cast: true; receive: true;" position="-.19 1.15 -.4" src="bedwood.jpg" depth=".07" height="2.5" width="0.07"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        //bed steps door
+        <a-box shadow="cast: true; receive: true;" position="2.17 .7 -.84" src="bedstep.jpg" depth=".81" height=".12" width="0.04"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="2.17 1.02 -.84" src="bedstep.jpg" depth=".81" height=".12" width="0.04"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="2.17 1.34 -.84" src="bedstep.jpg" depth=".81" height=".12" width="0.04"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="2.17 1.66 -.84" src="bedstep.jpg" depth=".81" height=".12" width="0.04"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="2.17 1.98 -.84" src="bedstep.jpg" depth=".81" height=".12" width="0.04"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="2.17 2.3 -.84" src="bedstep.jpg" depth=".81" height=".12" width="0.04"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        
+        //bed steps middle
+        <a-box shadow="cast: true; receive: true;" position="-.197 .7 -.84" src="bedstep.jpg" depth=".81" height=".12" width="0.04"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-.197 1.02 -.84" src="bedstep.jpg" depth=".81" height=".12" width="0.04"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-.197 1.34 -.84" src="bedstep.jpg" depth=".81" height=".12" width="0.04"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-.197 1.66 -.84" src="bedstep.jpg" depth=".81" height=".12" width="0.04"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-.197 1.98 -.84" src="bedstep.jpg" depth=".81" height=".12" width="0.04"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-.197 2.3 -.84" src="bedstep.jpg" depth=".81" height=".12" width="0.04"
+               animation__mouseenter="property: src; dur: 500; from: water.mp4; to: bedwood.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: bedwood.jpg; to: water.mp4; startEvents: mouseleave"
+               ></a-box>
+        
+        //mattress
+        <a-box shadow="cast: true; receive: true;" position="1. 2.35 -.84" src="bedsheet.jpg" depth=".81" height=".3" width="2.5"></a-box>
+        
+        //mattress springs
+        <a-box shadow="cast: true; receive: true;" position="1. 2.2 -.84" src="bedsprings.jpg" depth=".81" height=".01" width="2.5"></a-box>
+        
+        //mattress box case short door
+        <a-box shadow="cast: true; receive: true;" position="2.18 2.19 -.84" color="#141419" depth=".81" height=".003" width=".05"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-.22 2.19 -.84" color="#141419" depth=".81" height=".003" width=".05"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="1 2.19 -.46" color="#141419" depth=".05" height=".003" width="2.5"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="1 2.19 -1.22" color="#141419" depth=".05" height=".003" width="2.5"></a-box>
+        
+        //door
+        <a-box shadow="cast: true; receive: true;" position="2.25 1.5 1.2" color="#14265A" depth=".07" height="2.53" width="0.03"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="2.25 1.5 .2" color="#14265A" depth=".07" height="2.53" width="0.03"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="2.25 2.73 .7" color="#14265A" depth="1" height=".07" width="0.03"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="2.25 1.55 .7" src="door.jpg" depth=".9" height="2.38" width="0.02"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="2.249 0.51 .7" color="black" depth=".9" height="0.02" width="0.02"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="2.26 1.5 .68" color="black" depth="1" height="2.4" width="0.03"></a-box>
+        
+        //door hinges
+        <a-cylinder shadow="cast: true; receive: true;" position="2.23 .85 1.155" radius=".012" height=".15" src=#wall ></a-cylinder>
+        
+        <a-cylinder shadow="cast: true; receive: true;" position="2.23 1.62 1.155" radius=".012" height=".15" src=#wall ></a-cylinder>
+        
+        <a-cylinder shadow="cast: true; receive: true;" position="2.23 2.375 1.155" radius=".012" height=".15" src=#wall ></a-cylinder>
+        
+        //floor lining
+        <a-box shadow="cast: true; receive: true;" position="2.25 .53 -.82" color="#0F1C43" depth="2" height=".15" width="0.01"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="2.25 .53 1.73" color="#0F1C43" depth="1" height=".15" width="0.01"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="0 .53 1.325" color="#0F1C43" depth="0.01" height=".15" width="5"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.85 .53 1.65" color="#0F1C43" depth="1" height=".15" width="0.01"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-2.25 .53 .1" color="#0F1C43" depth="3" height=".15" width="0.01"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="0 .53 -1.37" color="#0F1C43" depth="0.01" height=".15" width="5"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-2.35 .53 1.15" color="#0F1C43" depth="0.01" height=".15" width="1"></a-box>
+        
+        //wardrobe
+        <a-box shadow="cast: true; receive: true;" position="-1.25 1.5 1.1" rotation="0 90 0" width=".5" height="2.3" depth="1.1" src="wardrobe.jpg"
+               sound="src: scream.mp3; autoplay: true; loop: true; volume: 0"
+               animation__mouseenter="property: sound.volume; dur: 500; from: 0; to: 1; startEvents: mouseenter"
+               animation__mouseleave="property: sound.volume; dur: 500; from: 1; to: 0; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.5 1.59 .83" rotation="0 90 0" width=".03" height="1.95" depth="0.5" src="wardrobe.jpg"
+               sound="src: scream.mp3; autoplay: true; loop: true; volume: 0"
+               animation__mouseenter="property: sound.volume; dur: 500; from: 0; to: 1; startEvents: mouseenter"
+               animation__mouseleave="property: sound.volume; dur: 500; from: 1; to: 0; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-.96 1.59 .83" rotation="0 90 0" width=".03" height="1.95" depth="0.5" src="wardrobe.jpg"
+               sound="src: scream.mp3; autoplay: true; loop: true; volume: 0"
+               animation__mouseenter="property: sound.volume; dur: 500; from: 0; to: 1; startEvents: mouseenter"
+               animation__mouseleave="property: sound.volume; dur: 500; from: 1; to: 0; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.25 2.64 1.1" rotation="0 90 0" width=".55" height="0.05" depth="1.15" src="wardrobe.jpg"
+               sound="src: scream.mp3; autoplay: true; loop: true; volume: 0"
+               animation__mouseenter="property: sound.volume; dur: 500; from: 0; to: 1; startEvents: mouseenter"
+               animation__mouseleave="property: sound.volume; dur: 500; from: 1; to: 0; startEvents: mouseleave"
+               ></a-box>
+        
+        //wardrobe hinges
+        <a-cylinder shadow="cast: true; receive: true;" position="-.7 2.42 .83" radius=".012" height=".09" color="#261a0d" ></a-cylinder>
+        
+        <a-cylinder shadow="cast: true; receive: true;" position="-.7 1.84 .83" radius=".012" height=".09" color="#261a0d" ></a-cylinder>
+        
+        <a-cylinder shadow="cast: true; receive: true;" position="-.7 1.29 .83" radius=".012" height=".09" color="#261a0d" ></a-cylinder>
+        
+        <a-cylinder shadow="cast: true; receive: true;" position="-.7 0.72 .83" radius=".012" height=".09" color="#261a0d" ></a-cylinder>
+        
+        <a-cylinder shadow="cast: true; receive: true;" position="-1.77 2.42 .815" radius=".012" height=".09" color="#261a0d" ></a-cylinder>
+        
+        <a-cylinder shadow="cast: true; receive: true;" position="-1.77 1.84 .815" radius=".012" height=".09" color="#261a0d" ></a-cylinder>
+        
+        <a-cylinder shadow="cast: true; receive: true;" position="-1.77 1.29 .815" radius=".012" height=".09" color="#261a0d" ></a-cylinder>
+        
+        <a-cylinder shadow="cast: true; receive: true;" position="-1.77 0.72 .815" radius=".012" height=".09" color="#261a0d" ></a-cylinder>
+        
+        
+        //wardrobe drawings
+        <a-box shadow="cast: true; receive: true;" position="-.73 1.8 1.04" rotation="0 90 0" width=".23" height=".29" depth="0.01" color="#1E1517"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-.729 1.8 1.04" rotation="0 90 0" width=".16" height=".23" depth="0.01" src="yellowdood.jpg"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-.73 2.2 1.04" rotation="0 90 0" width=".23" height=".2" depth="0.01" color="#1E1517"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-.729 2.2 1.04" rotation="0 90 0" width=".17" height=".12" depth="0.01" src="whitedood.jpg"></a-box>
+        
+        //dresser
+        <a-box shadow="cast: true; receive: true;" position="1.55 .8 -1" rotation="0 90 0" width=".7" height="1" depth="1" src="dresser.jpg"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="1.53 .79 -.69" rotation="0 90 0" width=".1" height="1" depth=".9" src="drawer.jpg"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="1.55 1.3 -1" rotation="0 90 0" width=".75" height=".03" depth="1.05" src="dresser.jpg"></a-box>
+        
+        //desk
+        <a-box shadow="cast: true; receive: true;" position="1.02 .8 -1" rotation="0 90 0" width=".7" height="1" depth=".03" src="dresser.jpg"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position=".49 .8 -1" rotation="0 90 0" width=".7" height="1" depth=".03" src="dresser.jpg"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-0.135 .8 -1" rotation="0 90 0" width=".7" height="1" depth=".03" src="dresser.jpg"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position=".73 .79 -.705" rotation="0 90 0" width=".1" height="1" depth=".5" src="drawer.jpg"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position=".4 .7 -1.25" rotation="0 90 0" width=".01" height=".15" depth="1.3" src="dresser.jpg"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position=".42 1.3 -1" rotation="0 90 0" width=".75" height=".03" depth="1.15" src="dresser.jpg"></a-box>
+        
+        //laptop
+        <a-box shadow="cast: true; receive: true;" position=".2 1.32 -.9" rotation="0 -20 0" width=".32" height=".005" depth=".2" src="keyboard.jpg"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position=".245 1.41 -1.03" rotation="70 -20 0" width=".32" height=".005" depth=".2" color="#10100a"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position=".245 1.41 -1.03" rotation="70 -20 0" width=".275" height=".005" depth=".175" src="screen.jpg"
+               animation__mouseenter="property: src; dur: 100; from: screen2.jpg; to: screen.jpg; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 100; from: screen.jpg; to: screen2.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        //refrigerator
+        <a-box shadow="cast: true; receive: true;" position="1.25 1.595 -.94" rotation="0 90 0" width=".5" height=".5" depth=".5" color="#0E0A0B"></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="1.2 1.595 -.68" rotation="0 90 0" width=".03" height=".45" depth=".45" color="#0E0A0B"></a-box>
+        
+        //eisel
+        <a-box shadow="cast: true; receive: true;" position="-1.77 1.4984 -.65" rotation="0 120 12" width=".49" height=".14" depth=".02" src="#eisel"
+               animation__mouseenter="property: src; dur: 500; from: eisel2.jpg; to: #eisel; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: #eisel; to: eisel2.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.37 1.5 -.9" rotation="0 120 12" width=".55" height=".14" depth=".02" src="eisel.jpg"
+               animation__mouseenter="property: src; dur: 500; from: eisel2.jpg; to: #eisel; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: #eisel; to: eisel2.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.445 1.448 -.56" rotation="12 29 -0" width=".49" height=".14" depth=".02" src="eisel.jpg"
+               animation__mouseenter="property: src; dur: 500; from: eisel2.jpg; to: #eisel; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: #eisel; to: eisel2.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.69 1.547 -.97" rotation="13 35 .5" width=".47" height=".14" depth=".02" src="eisel.jpg"
+               animation__mouseenter="property: src; dur: 500; from: eisel2.jpg; to: #eisel; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: #eisel; to: eisel2.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.6 1.47 -.85" rotation="13 35 .5" width=".47" height=".04" depth=".02" src="eisel.jpg"
+               animation__mouseenter="property: src; dur: 500; from: eisel2.jpg; to: #eisel; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: #eisel; to: eisel2.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.8 .9 -1.1" rotation="30 40 6" width=".02" height="1.3" depth=".02" src="eisel.jpg"
+               animation__mouseenter="property: src; dur: 500; from: eisel2.jpg; to: #eisel; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: #eisel; to: eisel2.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.07 .9 -.66" rotation="0 -10 20" width=".02" height="1.1" depth=".02" src="eisel.jpg"
+               animation__mouseenter="property: src; dur: 500; from: eisel2.jpg; to: #eisel; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: #eisel; to: eisel2.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.7 .9 -.31" rotation="-17 25 -10" width=".02" height="1.1" depth=".02" src="eisel.jpg"
+               animation__mouseenter="property: src; dur: 500; from: eisel2.jpg; to: #eisel; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: #eisel; to: eisel2.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        //drawing
+        <a-box shadow="cast: true; receive: true;" position="-1.47 1.8 -.65" rotation="-12 29 0" width=".45" height=".6" depth=".035" src="eisel.jpg"
+               animation__mouseenter="property: src; dur: 500; from: eisel2.jpg; to: #eisel; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: #eisel; to: eisel2.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.45 1.8 -.63" rotation="-12 29 0" width=".4" height=".6" depth=".02" src="drawing.jpg"
+               animation__mouseenter="property: src; dur: 500; from: drawing.jpg; to: hands.mp4; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: hands.mp4; to: drawing.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.47 2 -.7" rotation="-12 29 0" width=".02" height="1" depth=".035" src="eisel.jpg"
+               animation__mouseenter="property: src; dur: 500; from: eisel2.jpg; to: #eisel; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: #eisel; to: eisel2.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-box shadow="cast: true; receive: true;" position="-1.49 2.5 -.8" rotation="-12 29 0" width=".2" height=".05" depth=".035" src="eisel.jpg"
+               animation__mouseenter="property: src; dur: 500; from: eisel2.jpg; to: #eisel; startEvents: mouseenter"
+               animation__mouseleave="property: src; dur: 500; from: #eisel; to: eisel2.jpg; startEvents: mouseleave"
+               ></a-box>
+        
+        <a-sky src="northave2.jpg">
+        </a-sky>
+        
+        <a-sky src="northave.jpg" opacity="1" animation="property: opacity; dur: 2000; from: 1; to: 0; dir: alternate; loop: true"></a-sky>
+        
+    </a-scene>
+  </body>
+</html>
